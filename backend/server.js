@@ -8,7 +8,6 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Routes
 app.use("/api/notes", notesRoutes);
 
 app.listen(PORT, () => {
