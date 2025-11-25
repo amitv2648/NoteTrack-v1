@@ -1,16 +1,12 @@
 import express from "express";
-import {
-  createNote,
-  getStudentNotes,
-  getNoteById,
-  updateNoteByTeacher
-} from "../controllers/notesController.js";
+import { createNote, getStudentNotes, getNoteById, updateNote, deleteNote } from "../controllers/notesController.js";
 
 const router = express.Router();
 
-router.post("/create", createNote);
-router.get("/student/:studentId", getStudentNotes);
+router.get("/", getStudentNotes);
 router.get("/note/:noteId", getNoteById);
-router.put("/note/:noteId/update", updateNoteByTeacher);
+router.post("/", createNote);
+router.put("/note/:noteId", updateNote);
+router.delete("/note/:noteId/delete", deleteNote);
 
 export default router;

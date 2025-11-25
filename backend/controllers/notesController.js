@@ -35,17 +35,23 @@ export const createNote = async (req, res) => {
 // =============== GET ALL NOTES FOR A STUDENT ===============
 export const getStudentNotes = async (req, res) => {
   try {
-    const { studentId } = req.params;
+    const snapshot = await db.ref("notes").once("value");
+    const notesData = snapshot.val();
 
-    const snapshot = await db.ref("notes").orderByChild("studentId").equalTo(studentId).once("value");
-    const notes = snapshot.val() || {};
+    if (!notesData) return res.status(200).json([]);
 
-    res.status(200).json(notes);
+    const notesArray = Object.entries(notesData).map(([id, note]) => ({
+      noteId: id,
+      ...note,
+    }));
+
+    res.status(200).json(notesArray);
   } catch (err) {
-    console.error("Error fetching student notes:", err);
+    console.error("Error fetching notes:", err); // <-- check this log
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 // =============== GET A SINGLE NOTE BY ID ===============
 export const getNoteById = async (req, res) => {
@@ -67,10 +73,17 @@ export const getNoteById = async (req, res) => {
 };
 
 // =============== UPDATE NOTE (Teacher Edits It) ===============
-export const updateNoteByTeacher = async (req, res) => {
+export const updateNote = async (req, res) => {
+  console.log("Params:", req.params);
+  console.log("Body:", req.body);
+
   try {
     const { noteId } = req.params;
     const { topic, description } = req.body;
+
+    if (!topic && !description) {
+      return res.status(400).json({ error: "Missing fields" });
+    }
 
     const noteRef = db.ref(`notes/${noteId}`);
     const snapshot = await noteRef.once("value");
@@ -79,16 +92,37 @@ export const updateNoteByTeacher = async (req, res) => {
       return res.status(404).json({ error: "Note not found" });
     }
 
-    await noteRef.update({
-      topic,
-      description,
-      teacherEdited: true,
-      updatedAt: Date.now(),
-    });
+    const updates = {};
+    if (topic) updates.topic = topic;
+    if (description) updates.description = description;
+    updates.teacherEdited = true;
+    updates.updatedAt = Date.now();
 
-    res.status(200).json({ message: "Note updated successfully" });
+    await noteRef.update(updates);
+
+    res.status(200).json({ message: "Note updated successfully", noteId });
   } catch (err) {
     console.error("Error updating note:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+export const deleteNote = async (req, res) => {
+  try {
+    const { noteId } = req.params;
+
+    if (!noteId) {
+      return res.status(400).json({ error: "Missing noteId" });
+    }
+
+    const ref = db.ref(`notes/${noteId}`);
+    await ref.remove();
+
+    res.status(200).json({ message: "Note deleted successfully", noteId });
+  } catch (err) {
+    console.error("Error deleting note:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+

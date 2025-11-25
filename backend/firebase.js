@@ -1,22 +1,18 @@
 import admin from "firebase-admin";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 
-// __dirname replacement
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Read your service account
+const serviceAccount = JSON.parse(
+  fs.readFileSync(path.resolve("./serviceAccountKey.json"), "utf8")
+);
 
-// Read service account JSON
-const serviceAccountPath = path.join(__dirname, "serviceAccountKey.json");
-const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, "utf8"));
-
-// Initialize Firebase Admin
+// Initialize Firebase app
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
+  // Use the databaseURL exactly from your Firebase project -> Realtime Database -> Data -> Web Setup
   databaseURL: "https://notetrack-2025-default-rtdb.firebaseio.com/"
 });
 
-// Export database reference
 const db = admin.database();
 export default db;

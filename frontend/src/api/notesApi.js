@@ -1,3 +1,7 @@
+import express from "express";
+import { deleteNote } from "../controllers/notesController.js";
+
+const router = express.Router();
 // src/api/notesApi.js
 const API_BASE_URL = "http://localhost:5000/api/notes";
 
@@ -39,3 +43,5 @@ export const updateNoteByTeacher = async (noteId, updatedData) => {
   if (!res.ok) throw new Error("Failed to update note");
   return res.json();
 };
+router.delete("/note/:noteId/delete", deleteNote);
+export default router;

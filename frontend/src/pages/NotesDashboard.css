@@ -1,0 +1,183 @@
+/* src/pages/NotesDashboard.css */
+
+.notes-dashboard {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .notes-dashboard h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  /* Create Note Form */
+  .create-note,
+  .edit-note-panel {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  .create-note h2,
+  .edit-note-panel h2,
+  .notes-list h2 {
+    margin-bottom: 15px;
+    color: #007bff;
+  }
+  
+  .create-note input,
+  .create-note textarea,
+  .edit-note-panel input,
+  .edit-note-panel textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  .create-note button,
+  .edit-note-panel button,
+  .note-item button {
+    padding: 8px 14px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+  }
+  
+  .create-note button {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .create-note button:hover {
+    background-color: #218838;
+  }
+  
+  .edit-note-panel button {
+    background-color: #ffc107;
+    color: #212529;
+  }
+  
+  .edit-note-panel button:hover {
+    background-color: #e0a800;
+  }
+  
+  /* Notes List */
+  .notes-list {
+    margin-bottom: 30px;
+  }
+  
+  .note-item {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .note-item h3 {
+    margin: 0 0 8px 0;
+    color: #343a40;
+  }
+  
+  .note-item p {
+    margin: 0 0 10px 0;
+    color: #6c757d;
+  }
+  
+  /* Note Buttons */
+  .note-item button {
+    width: fit-content;
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .note-item button:hover {
+    background-color: #0069d9;
+  }
+  
+  .note-item button:last-child {
+    background-color: #dc3545;
+  }
+  
+  .note-item button:last-child:hover {
+    background-color: #c82333;
+  }
+  
+  /* Edit panel buttons */
+  .edit-note-panel button:last-child {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .edit-note-panel button:last-child:hover {
+    background-color: #5a6268;
+  }
+  /* Responsive Design */
+
+/* Small devices (phones, max-width 600px) */
+@media (max-width: 600px) {
+    .notes-dashboard {
+      padding: 10px;
+    }
+  
+    .create-note,
+    .edit-note-panel,
+    .note-item {
+      padding: 15px;
+    }
+  
+    .create-note input,
+    .create-note textarea,
+    .edit-note-panel input,
+    .edit-note-panel textarea {
+      font-size: 13px;
+    }
+  
+    .note-item button,
+    .create-note button,
+    .edit-note-panel button {
+      font-size: 12px;
+      padding: 6px 10px;
+      margin-bottom: 6px;
+    }
+  
+    .note-item {
+      flex-direction: column;
+    }
+  }
+  
+  /* Medium devices (tablets, max-width 900px) */
+  @media (max-width: 900px) {
+    .notes-dashboard {
+      padding: 15px;
+    }
+  
+    .create-note input,
+    .create-note textarea,
+    .edit-note-panel input,
+    .edit-note-panel textarea {
+      font-size: 14px;
+    }
+  
+    .note-item button,
+    .create-note button,
+    .edit-note-panel button {
+      font-size: 13px;
+      padding: 7px 12px;
+    }
+  }
+  

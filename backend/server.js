@@ -1,15 +1,12 @@
 import express from "express";
-import cors from "cors";
-import notesRoutes from "./routes/notes.js";
+import notesRoutes from "./routes/notes.js";// adjust path if needed
 
 const app = express();
-const PORT = 5000;
-
-app.use(cors());
 app.use(express.json());
 
+// Mount the notes routes at /api/notes
 app.use("/api/notes", notesRoutes);
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
 });
