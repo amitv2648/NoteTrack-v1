@@ -1,38 +1,36 @@
+// src/components/NoteForm.js
 import React, { useState } from "react";
 import { createNote } from "../api/notesApi";
 
-const NoteForm = ({ studentId = "student123", onNoteCreated }) => {
+const NoteForm = ({ studentId = "student123", onCreated }) => {
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
-  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState("");
 
-  const handleSubmit = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setMsg("");
     try {
-      const noteData = {
-        studentId,
-        topic,
-        description,
-      };
-      const res = await createNote(noteData);
-      setMessage(res.message || "Note created successfully");
+      const res = await createNote({ studentId, topic, description });
+      setMsg("Saved ✓");
       setTopic("");
       setDescription("");
-      if (onNoteCreated) {
-        onNoteCreated(res.noteId, noteData);
-      }
+      if (onCreated) onCreated(res.noteId);
     } catch (err) {
       console.error(err);
-      setMessage("Error creating note");
+      setMsg("Error saving note");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="note-form">
-      <h2>Create Note</h2>
-      <form onSubmit={handleSubmit}>
+    <section className="card note-form">
+      <h3>Create note</h3>
+      <form onSubmit={submit}>
         <input
-          type="text"
           placeholder="Topic"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
@@ -42,12 +40,17 @@ const NoteForm = ({ studentId = "student123", onNoteCreated }) => {
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          rows={5}
           required
-        ></textarea>
-        <button type="submit">Save Note</button>
+        />
+        <div className="form-row">
+          <button type="submit" disabled={loading}>
+            {loading ? "Saving..." : "Save note"}
+          </button>
+          {msg && <span className="form-msg">{msg}</span>}
+        </div>
       </form>
-      {message && <p>{message}</p>}
-    </div>
+    </section>
   );
 };
 
