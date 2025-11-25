@@ -1,0 +1,20 @@
+{
+    "name": "notetrack-backend",
+    "version": "1.0.0",
+    "description": "Backend server for the NoteTrack student-teacher collaboration platform",
+    "main": "server.js",
+    "type": "module",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.19.2",
+        "firebase-admin": "^13.6.0",
+        "mongoose": "^8.3.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.0"
+    }
+}

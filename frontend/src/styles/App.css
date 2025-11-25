@@ -1,0 +1,111 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1, h2, h3 {
+    text-align: center;
+    color: #2c3e50;
+  }
+  
+  .App {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Forms */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  textarea,
+  select {
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Notes and Questions List */
+  .note-list, .student-practice, .teacher-question-builder {
+    margin-top: 30px;
+  }
+  
+  .note-item, .question-item {
+    background-color: #ecf0f1;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+  }
+  
+  .note-item p, .question-item p {
+    margin: 5px 0;
+  }
+  
+  em {
+    color: #e74c3c;
+  }
+  
+  /* Links */
+  a {
+    text-decoration: none;
+  }
+  
+  a button {
+    background-color: #2ecc71;
+  }
+  
+  a button:hover {
+    background-color: #27ae60;
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    .App {
+      padding: 10px;
+    }
+  
+    form {
+      padding: 15px;
+    }
+  }
+  
