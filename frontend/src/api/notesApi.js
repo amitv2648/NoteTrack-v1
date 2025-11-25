@@ -1,23 +1,29 @@
-import axios from "axios";
-
 const BASE_URL = "http://localhost:5000/api/notes";
 
 export const createNote = async (noteData) => {
-  const response = await axios.post(`${BASE_URL}/create`, noteData);
-  return response.data;
+  const res = await fetch(`${BASE_URL}/create`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(noteData),
+  });
+  return await res.json();
 };
 
 export const getStudentNotes = async (studentId) => {
-  const response = await axios.get(`${BASE_URL}/student/${studentId}`);
-  return response.data;
+  const res = await fetch(`${BASE_URL}/student/${studentId}`);
+  return await res.json();
 };
 
 export const getNoteById = async (noteId) => {
-  const response = await axios.get(`${BASE_URL}/note/${noteId}`);
-  return response.data;
+  const res = await fetch(`${BASE_URL}/note/${noteId}`);
+  return await res.json();
 };
 
-export const updateNoteByTeacher = async (noteId, updatedData) => {
-  const response = await axios.put(`${BASE_URL}/note/${noteId}/update`, updatedData);
-  return response.data;
+export const updateNoteByTeacher = async (noteId, noteData) => {
+  const res = await fetch(`${BASE_URL}/note/${noteId}/update`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(noteData),
+  });
+  return await res.json();
 };

@@ -1,92 +1,70 @@
-import db from "../firebaseConfig.js";
+import db from "../firebase.js";
 
-// CREATE a new note
+// Create Note
 export const createNote = async (req, res) => {
   try {
     const { studentId, topic, description } = req.body;
+    if (!studentId || !topic || !description) {
+      return res.status(400).json({ error: "Missing fields" });
+    }
 
-    const noteRef = db.ref("notes").push();
-    const timestamp = Date.now();
-
-    const noteData = {
+    const newNote = {
       studentId,
       topic,
       description,
-      createdAt: timestamp,
-      updatedAt: timestamp,
-      teacherEdited: false
+      teacherEdited: false,
+      createdAt: Date.now(),
+      updatedAt: Date.now()
     };
 
-    await noteRef.set(noteData);
+    const ref = db.ref("notes").push();
+    await ref.set(newNote);
 
-    res.status(201).json({ message: "Note created successfully", noteId: noteRef.key });
-  } catch (error) {
-    console.error("Create note error:", error);
+    res.status(201).json({ message: "Note created successfully", noteId: ref.key });
+  } catch (err) {
+    console.error("Error creating note:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
-// GET all notes for a student
+// Get all notes for a student
 export const getStudentNotes = async (req, res) => {
   try {
     const { studentId } = req.params;
-
-    const snapshot = await db
-      .ref("notes")
-      .orderByChild("studentId")
-      .equalTo(studentId)
-      .once("value");
-
+    const snapshot = await db.ref("notes").orderByChild("studentId").equalTo(studentId).once("value");
     res.status(200).json(snapshot.val() || {});
-  } catch (error) {
-    console.error("Get student notes error:", error);
+  } catch (err) {
+    console.error("Error fetching student notes:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
-// GET a single note by ID
+// Get a note by ID
 export const getNoteById = async (req, res) => {
   try {
     const { noteId } = req.params;
-
     const snapshot = await db.ref(`notes/${noteId}`).once("value");
-
-    if (!snapshot.exists()) {
-      return res.status(404).json({ error: "Note not found" });
-    }
-
+    if (!snapshot.exists()) return res.status(404).json({ error: "Note not found" });
     res.status(200).json({ id: noteId, ...snapshot.val() });
-  } catch (error) {
-    console.error("Get note by ID error:", error);
+  } catch (err) {
+    console.error("Error fetching note:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
-// UPDATE note by teacher
+// Update note by teacher
 export const updateNoteByTeacher = async (req, res) => {
   try {
     const { noteId } = req.params;
-    const { description, topic } = req.body;
-
+    const { topic, description } = req.body;
     const ref = db.ref(`notes/${noteId}`);
     const snapshot = await ref.once("value");
+    if (!snapshot.exists()) return res.status(404).json({ error: "Note not found" });
 
-    if (!snapshot.exists()) {
-      return res.status(404).json({ error: "Note not found" });
-    }
-
-    const updates = {
-      description,
-      topic,
-      updatedAt: Date.now(),
-      teacherEdited: true
-    };
-
-    await ref.update(updates);
-
+    await ref.update({ topic, description, teacherEdited: true, updatedAt: Date.now() });
     res.status(200).json({ message: "Note updated successfully" });
-  } catch (error) {
-    console.error("Update note error:", error);
+  } catch (err) {
+    console.error("Error updating note:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 };

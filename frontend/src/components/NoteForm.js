@@ -1,69 +1,54 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { createNote } from "../api/notesApi";
 
-function NoteForm() {
+const NoteForm = ({ studentId = "student123", onNoteCreated }) => {
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
-  const [studentId, setStudentId] = useState(""); // You can replace with auth later
-  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!studentId || !topic || !description) {
-      alert("Please fill in all fields");
-      return;
-    }
-
     try {
-      await axios.post("http://localhost:5000/api/notes/create", {
+      const noteData = {
         studentId,
         topic,
         description,
-      });
-
-      alert("Note saved successfully!");
+      };
+      const res = await createNote(noteData);
+      setMessage(res.message || "Note created successfully");
       setTopic("");
       setDescription("");
-      navigate("/notes");
+      if (onNoteCreated) {
+        onNoteCreated(res.noteId, noteData);
+      }
     } catch (err) {
       console.error(err);
-      alert("Error saving note");
+      setMessage("Error creating note");
     }
   };
 
   return (
     <div className="note-form">
-      <h2>Create a New Note</h2>
+      <h2>Create Note</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Student ID:
-          <input
-            type="text"
-            value={studentId}
-            onChange={(e) => setStudentId(e.target.value)}
-          />
-        </label>
-        <label>
-          Note Topic:
-          <input
-            type="text"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-          />
-        </label>
-        <label>
-          Note Description:
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
-        </label>
+        <input
+          type="text"
+          placeholder="Topic"
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+          required
+        />
+        <textarea
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        ></textarea>
         <button type="submit">Save Note</button>
       </form>
+      {message && <p>{message}</p>}
     </div>
   );
-}
+};
 
 export default NoteForm;

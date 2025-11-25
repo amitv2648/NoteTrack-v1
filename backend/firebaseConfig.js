@@ -1,8 +1,8 @@
 import admin from "firebase-admin";
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
+import serviceAccount from "./serviceAccountKey.json" assert { type: "json" };
 
-const serviceAccount = require("./serviceAccountKey.json");
+// For older Node versions (without assert), you could do: import * as serviceAccount from ...
+// but Node v25 supports JSON modules if your package.json has "type": "module"
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
