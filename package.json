@@ -1,0 +1,27 @@
+{
+  "name": "notetrack",
+  "version": "1.0.0",
+  "description": "**NoteTrack** is a collaborative note-taking and practice platform for students and teachers. It allows students to take notes, submit them to their teachers for review, and practice with teacher-created questions. Teachers can monitor student progress and provide targeted exercises.",
+  "main": "index.js",
+  "scripts": {
+    "start:backend": "cd backend && npm install && npm start",
+    "start:frontend": "cd frontend && npm install && npm start",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amitv2648/NoteTrack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/amitv2648/NoteTrack/issues"
+  },
+  "homepage": "https://github.com/amitv2648/NoteTrack#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

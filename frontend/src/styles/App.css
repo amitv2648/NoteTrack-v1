@@ -76,6 +76,129 @@ body {
     margin-bottom: 15px;
     border-radius: 8px;
   }
+<<<<<<< HEAD
+=======
+
+  /* Teacher notes page */
+  .teacher-notes-page h1 {
+    text-align: left;
+  }
+
+  .teacher-notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .teacher-note-card {
+    background: #0b1120;
+    color: #e5e7eb;
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.55);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .teacher-note-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #f97316, #fb7185, #a855f7);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    opacity: 0.75;
+  }
+
+  .teacher-note-header {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+  }
+
+  .teacher-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #0b1120;
+    background: linear-gradient(90deg, #facc15, #fb923c);
+    box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.4);
+  }
+
+  .teacher-badge-pill::before {
+    content: "★";
+    font-size: 0.7rem;
+  }
+
+  .teacher-note-card h3 {
+    margin-top: 4px;
+    margin-bottom: 6px;
+  }
+
+  .teacher-note-card p {
+    margin-bottom: 10px;
+    color: #e5e7eb;
+  }
+
+  .teacher-note-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .meta-pill {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.2);
+    color: #e5e7eb;
+  }
+
+  .meta-pill-accent {
+    background: rgba(251, 113, 133, 0.25);
+    color: #fecaca;
+  }
+
+  .teacher-feedback label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+
+  .teacher-feedback textarea {
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    padding: 8px;
+    font-size: 0.85rem;
+    background: #020617;
+    color: #e5e7eb;
+    resize: vertical;
+    min-height: 70px;
+  }
+
+  .teacher-feedback button {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #22c55e, #4ade80);
+    border: none;
+    color: #022c22;
+    font-weight: 600;
+    cursor: pointer;
+  }
+>>>>>>> dc50e17 (MORE ERRORS)
   
   .note-item p, .question-item p {
     margin: 5px 0;
